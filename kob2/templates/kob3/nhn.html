@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>من نحن - كوبونات طلال</title>
+    <!-- استدعاء Tailwind CSS للتنسيق السريع والنظيف -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 font-sans">
+
+    <!-- الهيدر البسيط -->
+    <header class="bg-[#7c3aed] text-white py-4 shadow-md">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold"> بوكس كوبونات</h1>
+            <div class="space-x-2 space-x-reverse">
+                <a href="/" class="text-sm bg-[#5b21b6] px-4 py-2 rounded-lg hover:bg-purple-800 transition">الرئيسية</a>
+                <a href="{% url 'toa' %}" class="text-sm bg-[#5b21b6] px-4 py-2 rounded-lg hover:bg-purple-800 transition">تواصل معنا</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- محتوى صفحة من نحن -->
+    <main class="container mx-auto px-4 py-12 max-w-3xl">
+        <div class="bg-white rounded-2xl shadow-xl p-8 border-t-4 border-[#7c3aed]">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">عن موقع بوكس كوبونات </h2>
+            
+            <p class="text-gray-600 leading-relaxed mb-6">
+                أهلاً بك في <strong>بوكس كوبونات</strong>، الوجهة الأولى والأكثر موثوقية لكل متسوق يبحث عن التوفير الحقيقي والذكي بدون إزعاج أو إضاعة وقت. 
+            </p>
+
+            <h3 class="text-xl font-bold text-[#7c3aed] mb-3">فكرة المشروع وهدفنا:</h3>
+            <p class="text-gray-600 leading-relaxed mb-6">
+                لاحظنا المعاناة الكبيرة للمستخدمين أثناء البحث عن أكواد الخصم في منصات التواصل الاجتماعي ومواجهتهم للأكواد الوهمية أو المنتهية. من هنا جاءت فكرة تأسيس منصة نظيفة، سريعة، وتقدم <strong>كوبونات مضمونة 100%</strong> للمتاجر الكبرى في المملكة والخليج.
+            </p>
+
+            <h3 class="text-xl font-bold text-[#7c3aed] mb-3">لماذا تختار بوكس كوبونات؟ </h3>
+            <ul class="list-disc list-inside text-gray-600 space-y-2 mb-6">
+                <li><strong>دقة ومصداقية:</strong> جميع الكوبونات مفحوصة وتعمل بكل كفاءة.</li>
+                <li><strong>سرعة وسهولة:</strong> واجهة مستخدم نظيفة وخالية من الإعلانات المزعجة لتنسخ كودك بضغطة زر.</li>
+                <li><strong>تحدي الثقة:</strong> التزام تام بتقديم تجربة تسوق مريحة وآمنة تضع العميل في المقام الأول.</li>
+            </ul>
+
+            <div class="bg-purple-50 p-4 rounded-xl border border-purple-100 text-center text-purple-900 font-medium">
+                نحن هنا لنوفر عليك وقتك وجهدك، ونجعل تجربة الشراء الإلكتروني أسهل وأكثر توفيراً! ☕️🔥
+            </div>
+        </div>
+    </main>
+
+    <!-- الفوتر -->
+    <footer class="text-center py-6 text-gray-400 text-sm">
+        جميع الحقوق محفوظة &copy; 2026 بوكس كوبونات 
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تواصل معنا -بوكس كوبونات </title>
+    <!-- استدعاء Tailwind CSS للتنسيق السريع والنظيف -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 font-sans">
+
+    <!-- الهيدر البسيط (تم تعديل وترتيب الأزرار هنا) -->
+    <header class="bg-[#7c3aed] text-white py-4 shadow-md">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold">بوكس كوبونات  🚀</h1>
+            <div class="space-x-2 space-x-reverse">
+                <a href="/" class="text-sm bg-[#5b21b6] px-4 py-2 rounded-lg hover:bg-purple-800 transition">الرئيسية</a>
+                <a href="{% url 'nhn' %}" class="text-sm bg-[#5b21b6] px-4 py-2 rounded-lg hover:bg-purple-800 transition">من نحن</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- محتوى صفحة تواصل معنا -->
+    <main class="container mx-auto px-4 py-12 max-w-2xl">
+        <div class="bg-white rounded-2xl shadow-xl p-8 border-t-4 border-[#7c3aed]">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">يسعدنا تواصلكم معنا</h2>
+            
+            <p class="text-gray-600 leading-relaxed mb-8 text-center">
+                يسعدنا فريق عمل موقع <strong>بوكس كوبونات  </strong> تلقي استفساراتكم ورسائلكم عبر البريد الالكتروني الخاص بموقعنا، كما يمكننا استقبال جميع الشكاوي التي تواجهكم اثناء تصفح موقعنا والابلاغ عن الكوبونات التي لا تعمل او انتهت صلاحيتها.
+                <br><br>
+                لا تتردد في التواصل معنا إذا كان لديك استفسار او اقتراح او طلب إضافة متجر عبر الخدمة التالية:
+            </p>
+
+            <!-- كروت وسائل التواصل -->
+            <div class="space-y-4">
+                <!-- الإيميل -->
+                <div class="flex items-center p-4 bg-purple-50 rounded-xl border border-purple-100">
+                    <span class="text-2xl ml-4">📧</span>
+                    <div>
+                        عبر البريد الإلكتروني:
+                        <a href="mailto:tlal94844@gmail.com" class="block font-bold text-[#7c3aed] hover:underline">tlal94844@gmail.com</a>
+                    </div>
+                </div>
+
+                <!-- الواتساب -->
+                <div class="flex items-center p-4 bg-green-50 rounded-xl border border-green-100">
+                    <span class="text-2xl ml-4">💬</span>
+                    <div>
+                        عبر الواتساب:
+                        <a href="https://wa.me/966551186401" target="_blank" class="block font-bold text-green-700 hover:underline">+966551186401</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- الفوتر -->
+    <footer class="text-center py-6 text-gray-400 text-sm">
+        جميع الحقوق محفوظة &copy; 2026  بوكس كوبونات 
+    </footer>
+
+</body>
+</html>

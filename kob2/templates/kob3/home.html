@@ -1,0 +1,292 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بوكس كوبونات</title>
+    <style>
+        body {
+            font-family: Tahoma, sans-serif;
+            background-color: #f5f3ff; /* خلفية بنفسجية فاتحة جداً ونظيفة */
+            padding: 0;
+            margin: 0;
+            color: #1e293b;
+        }
+
+        .header-section {
+            background: linear-gradient(135deg, #7c3aed, #5b21b6); /* تدرج بنفسجي ملكي */
+            padding: 20px 20px 30px 20px;
+            border-bottom-left-radius: 35px;
+            border-bottom-right-radius: 35px;
+            box-shadow: 0 10px 25px rgba(124, 58, 237, 0.25);
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        /* شريط العنوان العلوي (الاسم يمين والزر يسار) */
+        .top-navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .brand-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        .menu-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .menu-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        /* حاوية الأقسام الدائرية الأفقية */
+        .categories-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 15px;
+            padding: 10px 15px 20px 15px;
+            scroll-behavior: smooth;
+        }
+        .categories-container::-webkit-scrollbar {
+            display: none;
+        }
+        
+        /* تنسيق القسم مع الخط السفلي عند التفعيل */
+        .category-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            min-width: 68px;
+            position: relative;
+            padding-bottom: 8px;
+        }
+        .category-circle {
+            width: 62px;
+            height: 62px;
+            border-radius: 50%;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            border: 2px solid #ddd6fe;
+            overflow: hidden;
+            margin-bottom: 6px;
+            transition: all 0.25s ease;
+        }
+        .category-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .category-item span {
+            font-size: 12px;
+            color: #334155;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        /* تأثير الخط السفلي للقسم النشط */
+        .category-item.active span {
+            color: #7c3aed;
+        }
+        .category-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 35px;
+            height: 3px;
+            background-color: #7c3aed;
+            border-radius: 2px;
+        }
+
+        /* شبكة الكروت (3 جنب بعض) */
+        .stores-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            padding: 0 10px;
+        }
+
+        .store-card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+            border: 1px solid #ddd6fe;
+            text-decoration: none;
+            transition: all 0.25s ease;
+        }
+        .store-card:hover {
+            transform: translateY(-2px);
+            border-color: #7c3aed;
+            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- الهيدر الرئيسي -->
+    <div class="header-section">
+        <!-- شريط الزوايا العلوي -->
+        <div class="top-navbar">
+            <!-- اسم الموقع في أقصى اليمين مع اللوجو -->
+            <a href="#" class="brand-title">
+                <img src="{% static 'logo/xlogo.jpeg' %}" alt="بوكس كوبونات" style="height: 35px; width: auto; margin-left: 8px; border-radius: 6px;" onerror="this.style.display='none'">
+                <span>بوكس كوبونات</span>
+            </a>
+
+            <!-- زر القائمة الجانبية (الهامبرجر) في أقصى اليسار -->
+            <button class="menu-btn" onclick="toggleMenu()">☰</button>
+        </div>
+
+        <div style="text-align: center; margin-bottom: 15px;">
+            <p style="margin: 0; font-size: 13px; color: #ede9fe;">
+                وجهتك الأولى لأقوى أكواد الخصم والعروض الحصرية المضمونة ✨
+            </p>
+        </div>
+
+        <!-- خانة البحث الفاخرة -->
+        <form method="GET" action="" style="position: relative; display: flex; align-items: center; max-width: 500px; margin: 0 auto;">
+            {% if request.GET.category %}
+                <input type="hidden" name="category" value="{{ request.GET.category }}">
+            {% endif %}
+            {% if request.GET.type_offer %}
+                <input type="hidden" name="type_offer" value="{{ request.GET.type_offer }}">
+            {% endif %}
+            
+            <input type="text" name="q" value="{{ search_query }}" placeholder="ابحث عن متجر أو براند..." style="width: 100%; padding: 14px 20px 14px 45px; border: 2px solid #c4b5fd; border-radius: 50px; font-size: 14px; outline: none; background: #ffffff; color: #1e293b; box-sizing: border-box; text-align: right;">
+            
+            <button type="submit" style="position: absolute; right: 15px; background: none; border: none; cursor: pointer; font-size: 18px;">
+            </button>
+        </form>
+
+        {% if search_query %}
+            <div style="text-align: center; margin-top: 10px;">
+                <a href="?" style="color: #fef08a; text-decoration: none; font-size: 12px; font-weight: bold;">إلغاء البحث وعرض الكل ✕</a>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- قسم الفئات -->
+    <div style="padding: 0 10px;">
+        <h3 style="color: #1e293b; font-size: 16px; margin: 0 15px 10px 15px; font-weight: bold;">الأقسام والفئات</h3>
+    </div>
+
+    <div class="categories-container">
+        <!-- زر الكل (نشط إذا لم يتم اختيار أي قسم) -->
+        <a href="?" class="category-item {% if not request.GET.category %}active{% endif %}">
+            <div class="category-circle" style="background: #7c3aed; border-color: #7c3aed;">
+                <span style="font-size: 16px; color: #ffffff;">🔥</span>
+            </div>
+            <span>الكل</span>
+        </a>
+
+        <!-- الأقسام الديناميكية مع تفعيل الخط السفلي عند الضغط -->
+        {% for c in cat %}
+            <a href="?category={{ c.id }}" class="category-item {% if request.GET.category == c.id|stringformat:'s' %}active{% endif %}">
+                <div class="category-circle">
+                    {% if c.image %}
+                        <img src="{{ c.image.url }}" alt="{{ c.name }}">
+                    {% else %}
+                        <span style="font-size: 16px;">🏷️</span>
+                    {% endif %}
+                </div>
+                <span>{{ c.name }}</span>
+            </a>
+        {% endfor %}
+    </div>
+
+    <!-- قائمة الكوبونات / المتاجر -->
+    <div style="padding: 10px 0 30px 0;">
+        <h3 style="color: #1e293b; font-size: 16px; margin: 0 20px 12px 20px; font-weight: bold;">المتاجر والعروض المتاحة</h3>
+        
+        <div class="stores-grid">
+            {% for coup in coupons %}
+                <a href="{% url 'coupon_detail' coup.id %}" class="store-card">
+                    <!-- الشعار -->
+                    {% if coup.store and coup.store.image %}
+                        <img src="{{ coup.store.image.url }}" alt="{{ coup.store.name }}" style="width: 40px; height: 40px; border-radius: 50%; object-fit: contain; border: 1px solid #ddd6fe; background: #ffffff; padding: 2px; margin-bottom: 6px;">
+                    {% else %}
+                        <div style="width: 40px; height: 40px; border-radius: 50%; background: #f5f3ff; display: flex; align-items: center; justify-content: center; font-size: 16px; border: 1px solid #ddd6fe; margin-bottom: 6px;">🛒</div>
+                    {% endif %}
+                    
+                    <!-- الاسم ونسبة الخصم -->
+                    <h4 style="margin: 0 0 2px 0; font-size: 12px; color: #1e293b; font-weight: bold;">{{ coup.store.name|default:coup.title }}</h4>
+                    <p style="margin: 0 0 8px 0; font-size: 10px; color: #7c3aed; font-weight: bold;">{{ coup.discount_percentage|default:"خصم حصري" }}</p>
+
+                    <!-- زر الكود -->
+                    <span style="background: #ede9fe; color: #5b21b6; font-size: 9px; padding: 4px 8px; border-radius: 15px; font-weight: bold; width: 100%; box-sizing: border-box;">عرض الكود ⚡</span>
+                </a>
+            {% empty %}
+                <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #64748b; font-size: 14px;">
+                    لا توجد متاجر أو كوبونات مطابقة لاختياراتك حالياً.
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- القائمة الجانبية (Sidebar) -->
+    <div id="sideMenu" style="position: fixed; top: 0; left: -280px; width: 280px; height: 100%; background: #ffffff; box-shadow: 5px 0 25px rgba(0,0,0,0.1); z-index: 1000; transition: left 0.3s ease; padding: 20px; box-sizing: border-box;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px;">
+            <h3 style="margin: 0; font-size: 16px; color: #7c3aed; font-weight: bold;">بوكس كوبونات</h3>
+            <button onclick="toggleMenu()" style="background: none; border: none; font-size: 20px; cursor: pointer; color: #64748b;">✕</button>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 12px;">         
+            <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 5px 0;">
+
+            <a href="{% url 'nhn' %}" style="text-decoration: none; color: #1e293b; font-size: 14px; font-weight: bold; padding: 8px 12px; border-radius: 8px; transition: background 0.2s;" onmouseover="this.style.background='#f5f3ff'" onmouseout="this.style.background='transparent'"><h3>من نحن</h3></a>
+            <a href="{% url 'toa' %}" style="text-decoration: none; color: #1e293b; font-size: 14px; font-weight: bold; padding: 8px 12px; border-radius: 8px; transition: background 0.2s;" onmouseover="this.style.background='#f5f3ff'" onmouseout="this.style.background='transparent'"><h3>تواصل معنا</h3></a>
+        </div>
+    </div>
+
+    <!-- طبقة التعتيم الخلفية -->
+    <div id="menuOverlay" onclick="toggleMenu()" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 999; display: none; transition: opacity 0.3s ease;"></div>
+
+    <!-- جافاسكريبت للتحكم بالقائمة -->
+    <script>
+    function toggleMenu() {
+        const sideMenu = document.getElementById('sideMenu');
+        const overlay = document.getElementById('menuOverlay');
+        
+        if (sideMenu.style.left === '0px') {
+            sideMenu.style.left = '-280px';
+            overlay.style.display = 'none';
+        } else {
+            sideMenu.style.left = '0px';
+            overlay.style.display = 'block';
+        }
+    }
+    </script>
+
+</body>
+</html>

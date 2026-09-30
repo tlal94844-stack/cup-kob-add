@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ coupon.title }} - تفاصيل العرض</title>
+</head>
+<body style="font-family: Tahoma, sans-serif; background-color: #f5f3ff; padding: 15px; margin: 0; color: #1e293b;">
+
+    <div style="max-width: 500px; margin: 20px auto; background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 20px rgba(124, 58, 237, 0.08); border: 1px solid #ddd6fe; box-sizing: border-box;">
+        
+        <!-- زر العودة للرئيسية -->
+        <a href="{% url 'k1' %}" style="text-decoration: none; color: #7c3aed; font-weight: bold; font-size: 13px; display: inline-flex; align-items: center; gap: 5px;">
+            <span>←</span> العودة للرئيسية
+        </a>
+
+        <!-- عنوان الكوبون -->
+        <h1 style="color: #1e293b; margin: 15px 0 10px 0; font-size: 20px; font-weight: bold;">{{ coupon.title }}</h1>
+
+        <!-- نسبة الخصم -->
+        <div style="background: #ede9fe; color: #5b21b6; padding: 6px 14px; border-radius: 20px; font-weight: bold; display: inline-block; margin-bottom: 15px; font-size: 13px;">
+            🔥 نسبة الخصم: {{ coupon.discount_percentage }}
+        </div>
+
+        <!-- كود الخصم -->
+        <div style="background: #f5f3ff; padding: 14px 16px; border-radius: 12px; margin-bottom: 15px; border: 1px solid #ddd6fe;">
+            <p style="margin: 0; color: #334155; font-size: 14px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+                <strong>كود الخصم:</strong> 
+                <span id="couponCode" style="font-family: monospace; font-size: 16px; color: #5b21b6; font-weight: bold; background: #ffffff; padding: 6px 12px; border-radius: 8px; border: 1px solid #c4b5fd;">{{ coupon.code }}</span>
+            </p>
+        </div>
+
+        <!-- نوع العرض -->
+        <p style="color: #64748b; font-size: 13px; margin-bottom: 20px;">
+            <strong>نوع العرض:</strong> 
+            {% if coupon.offer_type == 'coupon' %}كوبون خصم{% else %}رابط مباشر للمتجر{% endif %}
+        </p>
+
+        <!-- الوصف الكامل -->
+        <div style="margin-top: 15px; border-top: 1px solid #e2e8f0; padding-top: 15px;">
+            <h3 style="color: #1e293b; font-size: 15px; margin-bottom: 8px; font-weight: bold;">تفاصيل الشروط والعرض:</h3>
+            <p style="color: #475569; line-height: 1.6; font-size: 13px; margin: 0;">
+                {{ coupon.description }}
+            </p>
+        </div>
+
+        <!-- زر نسخ الكود والذهاب للمتجر مباشرة -->
+        <div style="margin-top: 25px; text-align: center;">
+            <button onclick="copyAndRedirect('{{ coupon.code }}', '{{ coupon.store.link }}')" style="width: 100%; background: linear-gradient(135deg, #7c3aed, #5b21b6); color: white; border: none; padding: 14px 20px; border-radius: 50px; font-weight: bold; font-size: 14px; cursor: pointer; box-shadow: 0 4px 15px rgba(124, 58, 237, 0.25); transition: all 0.25s ease;">
+                📋 نسخ الكود والذهاب للمتجر
+            </button>
+        </div>
+
+    </div>
+
+    <!-- جافاسكريبت للنسخ والتحويل الفوري -->
+    <script>
+    function copyAndRedirect(code, storeUrl) {
+        navigator.clipboard.writeText(code).then(function() {
+            if (storeUrl && storeUrl !== 'None' && storeUrl !== '') {
+                window.open(storeUrl, '_blank');
+            } else {
+                alert('تم نسخ الكود بنجاح، لكن هذا المتجر لا يملك رابطاً مسجلاً!');
+            }
+        }).catch(function(err) {
+            console.error('فشل النسخ', err);
+        });
+    }
+    </script>
+
+</body>
+</html>
