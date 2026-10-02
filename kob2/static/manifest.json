@@ -1,0 +1,13 @@
+{
+  "background_color": "#ffffff",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "كوبون بوكس",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "كوبون بوكس",
+  "start_url": "/",
+  "theme_color": "#ffffff",
+  "id": "couponboxx.app.cou",
+  "description": "تطبيق لتوفير الخصومات"
+}
