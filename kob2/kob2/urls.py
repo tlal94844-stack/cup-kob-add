@@ -26,7 +26,7 @@ def assetlinks_view(request):
       "target": {
         "namespace": "android_app",
         "package_name": "fit.couponbox.twa",
-        "sha256_cert_fingerprints": ["0B:B9:F8:9A:BA:54:59:C4:2C:5D:22:CB:78:D6:89:5B:75:B3:2E:E4:06:94:45:B2:F0:36:DE:D7:EE:CE:4E:0F"]
+        "sha256_cert_fingerprints": ["1C:AC:6D:D6:5A:C5:C0:44:51:50:95:E0:35:0D:09:A1:24:9F:FD:76:E2:DA:00:7B:27:2B:57:0F:3B:AC:2B:9C"]
       }
     }]
     return HttpResponse(json.dumps(data), content_type="application/json")
